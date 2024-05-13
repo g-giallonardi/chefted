@@ -1,0 +1,52 @@
+body{
+  margin:0;
+  padding:0;
+  height:100%;
+  font-family: var(--font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--text-color);
+  background-color: white;
+  min-height: 100vh;
+}
+
+h1,h2,h3,h4{
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+ul {
+  list-style:  none;
+  padding-left: 0px;
+  margin: 0;
+}
+
+img{
+  max-width: 100%;
+}
+
+input,::placeholder{
+  font-family: var(--font-family);
+}
+
+.appContainer{;
+  height: 100%;
+  min-height: 100vh;
+}
+.mainContainer{
+  position: relative;
+  top: 100px;
+  width:100%;
+}
+
+.active{
+  font-weight: bold;
+  color: var(--primary);
+}
+
+.error{
+  color : red;
+}

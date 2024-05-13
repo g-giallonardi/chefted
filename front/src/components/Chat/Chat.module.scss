@@ -1,0 +1,61 @@
+.chatContainer{
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  border-radius: 10px;
+  border: 1px solid lightgray;
+  scrollbar-color: red orange;
+  padding: 5px;
+  background-color: white;
+}
+
+.feed{
+  width: 300px;
+  height: 300px;
+  overflow: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: lightsteelblue white;
+}
+
+.expandFeed{
+  width: 600px;
+  height: 600px;
+  transition: 0.2s width, 0.2s height;
+}
+
+.message{
+  padding: 5px;
+  color: white;
+  border-radius: 5px;
+  margin-bottom: 5px ;
+}
+
+.chefMessage{
+  float: left;
+  margin-left: 20px;
+  background-color: #2ecc71;
+}
+.userMessage{
+  float: right;
+  margin-right: 20px;
+  background-color: #95a5a6;
+}
+
+.clearfix {
+  clear: both;
+  display: table;
+  margin:5px 0;
+}
+
+.inputContainer{
+  bottom: 0px;
+  width: 100%;
+
+  input{
+    outline: none;
+    border: none;
+    margin-left: auto;
+    margin-right: auto;
+    width:90%;
+  }
+}

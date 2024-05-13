@@ -1,0 +1,25 @@
+th{
+  font-size: 40px;
+}
+
+.dayOfWeek{
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.mealCard{
+  border-radius: 10px;
+  margin: 10px;
+  width: 150px;
+  padding: 10px;
+  color: white;
+  text-align: center;
+}
+
+.breakfastMeal{
+  background-color: #63cdda;
+}
+
+.dinnerMeal{
+  background-color: #786fa6;
+}
