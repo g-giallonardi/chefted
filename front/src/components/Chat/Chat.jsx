@@ -4,7 +4,8 @@ import useSse from "../../../hooks/useSse.js";
 import {user} from "../../data/user.mock.js"
 import Message from "./components/Message/Message.jsx";
 import IsTyping from "@/components/Chat/components/IsTyping/IsTyping.jsx";
-import { Maximize2, Send } from 'lucide-react';
+import {Maximize2, Send, ChevronDown, Minimize2} from 'lucide-react';
+import ChatButton from "@/components/Chat/components/ChatButton/ChatButton.jsx";
 
 function Chat(){
     const { execute, data, error,setError, isLoading } = useSse()
@@ -16,6 +17,8 @@ function Chat(){
         }
         ])
     const [expand, setExpand] = useState(false)
+    const [collapse, setCollapse] = useState(true)
+
 
     useEffect(() => {
         const newMessages = data.map((d)=>{
@@ -48,9 +51,23 @@ function Chat(){
     };
 
     return (
+        <>
+            <div className={collapse? 'visible' : 'hidden'}>
+                <ChatButton onClick={() => setCollapse(false)}/>
+            </div>
         <div
-            className={`flex flex-col fixed backdrop-blur bottom-1 right-3 bg-white/10 rounded-lg border border-primary ${expand ? 'max-w-2xl w-2xl  max-h-[600px] h-[600px]' : 'max-w-md w-md max-h-[400px] h-[400px] '} transition-all`}>
-            <Maximize2 className={` absolute rotate-90 text-slate-500 translate-x-1 translate-y-1 h-5 hover:h-6 hover:scale-110 transition-all`} onClick={() => setExpand(!expand)}/>
+            className={`flex flex-col fixed backdrop-blur bottom-1 right-3 bg-white/10 rounded-lg border border-primary ${expand ? 'max-w-2xl w-full max-h-[600px] h-[600px]' : 'max-w-md w-md max-h-[400px] h-[400px] '} ${collapse ? ' scale-0' : ' scale-100' } transition-all`}>
+            <div className='flex bg-primary w-full h-16 text-lg font-bold items-center justify-between pl-2 pr-4 text-white shadow-lg'>
+                <div className='flex flex-row py-2 self-start'>
+                    {expand ?
+                        <Minimize2 className={`rotate-180  h-4 hover:opacity-70 transition-all self-start hover:cursor-pointer`} onClick={() => setExpand(!expand)}/>
+                    :   <Maximize2 className={`rotate-180  h-4 hover:opacity-70 transition-all self-start hover:cursor-pointer`} onClick={() => setExpand(!expand)}/>
+
+                    }
+                    <ChevronDown  className={` h-5 hover:opacity-70 transition-all self-start hover:cursor-pointer`} onClick={() => setCollapse(!collapse)}/>
+                </div>
+                ChefTed
+            </div>
             <div className={`flex flex-col border-b  w-full overflow-y-scroll h-full gap-2  p-3 pl-7`}>
                 {
                     messages.filter(
@@ -61,21 +78,23 @@ function Chat(){
                 }
                 {isLoading && <IsTyping/>}
                 {error && <span className='text-destructive text-xs self-end'>{error}</span>}
+
                 <AlwaysScrollToBottom/>
             </div>
             <div className={`flex flex-row w-full items-center justify-center mx-2`}>
                 <input placeholder='Ecrivez...' type="text"
-                           className=' rounded-xl w-full bg-white px-3 py-2 shadow mr-3 border my-4 focus:outline-none bg-muted'
+                           className=' rounded-xl w-full bg-white px-3 py-2 shadow mr-3 border my-4 focus:outline-none bg-muted font-light text-sm'
                            value={currentMessage}
                            onKeyDown={handleKeyPress}
                            onChange={(e) => setCurrentMessage(e.target.value)}/>
 
-                    <Send className={`mr-5  shadow rounded-2xl p-2 h-10 w-10 ${currentMessage ? ' bg-primary/50 hover:bg-primary hover:shadow-inner hover:translate-y-0.5 hover:cursor-pointer' : 'bg-muted'} transition-all`}
+                    <Send className={`mr-5  shadow rounded-2xl p-2 h-10 w-10  ${currentMessage ? ' bg-primary/50 hover:bg-primary hover:shadow-inner hover:translate-y-0.5 hover:cursor-pointer' : 'bg-muted'} transition-all`}
                         onClick={sendMessage}
                     />
 
             </div>
         </div>
+        </>
     );
 }
 

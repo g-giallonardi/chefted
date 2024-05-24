@@ -17,7 +17,7 @@ const useSse = () => {
     }
 
     const formatMessage = (stringData, complete = false) => {
-        const lines = stringData.replace(/(\d+)\./, "$1-").split('\\n')
+        const lines = stringData.replace(/(\d+)\./, "$1-").replaceAll('..','.').split('\\n')
 
         const lastLine = lines.pop()
 
@@ -81,8 +81,6 @@ const useSse = () => {
                 },
                 onerror(err) {
                     console.error("There was an error from server", err);
-
-
                     setError(err);
                     setIsLoading(false);
                     throw err;
