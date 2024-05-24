@@ -14,14 +14,11 @@ const useSse = () => {
     const messageHandler = (event) => {
         console.info('EVENT', event)
         const chunk = event.data
-        messageBuffer += chunk.replaceAll('"', '');
+        messageBuffer += chunk.replace(/^$/,'\\n').replaceAll('"', '');
     }
 
     const formatMessage = (stringData, complete = false) => {
-        const lines = stringData.replaceAll('\\n','\n')
-            .replaceAll('\n','.')
-            .replaceAll('..','.')
-            .split('.')
+        const lines = stringData.replace(/(\d+)\./, "$1-").split('\\n')
 
         const lastLine = lines.pop()
 
@@ -30,7 +27,9 @@ const useSse = () => {
         let start = 0
         while (start < lines.length) {
             const end = start + nbPackedLine(lines.length - start);
-            blocks.push(lines.slice(start, end).join('.'));
+            const block = lines.slice(start, end).join('.')
+            console.info('BLOCK', block, block.length)
+            block.length && blocks.push(block);
             start = end;
         }
 

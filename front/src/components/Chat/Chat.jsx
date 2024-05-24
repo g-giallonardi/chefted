@@ -37,9 +37,9 @@ function Chat(){
     };
 
     return (
-        <div className={`${styles.chatContainer} flex d-flex flex-column flex-fill`}>
+        <div className='flex flex-col fixed backdrop-blur bottom-1 right-3 bg-white/10 rounded-lg border border-primary'>
             <i className={`fas fa-expand-arrows-alt`} onClick={()=>setExpand(!expand)}></i>
-            <div className={`${styles.feed} ${expand && styles.expandFeed}`}>
+            <div className={`flex flex-col border-b h-60 w-full max-w-xs overflow-y-scroll h-full gap-2 mx-2`}>
                 {
                     messages.map(
                         (message, i) => <Message key={i} message={message}/>
@@ -47,8 +47,9 @@ function Chat(){
                 }
                 <AlwaysScrollToBottom />
             </div>
-            <div className={`justify-content-center ${styles.inputContainer} flex d-flex flex-fill`}>
+            <div className={`justify-center flex w-full `}>
                 <input placeholder='Ecrivez...' type="text"
+                       className='w-full mx-1 my-1 focus:outline-none focus:ring-1 focus:ring-primary/20'
                        value={currentMessage}
                        onKeyDown={handleKeyPress}
                        onChange={(e) => setCurrentMessage(e.target.value)}/>
