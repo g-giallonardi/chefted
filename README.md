@@ -2,6 +2,9 @@
 
 Cette application vous aide à générer des menus équilibrés pour la semaine, en prenant en compte vos régimes alimentaires et vos allergies. De plus, vous pouvez discuter avec un chef cuisinier virtuel alimenté par l'IA pour obtenir des conseils de cuisine personnalisés et des recommandations de recettes.
 
+## To do
+- [ ] Ajouter des precisions dans le prompts du chat pour le centrer sur la cuisine et lui donner son nom
+
 ## Fonctionnalités
 
 - **Menus Équilibrés :** Générez des menus hebdomadaires équilibrés sur le plan nutritionnel, adaptés à vos besoins alimentaires spécifiques.
