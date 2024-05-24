@@ -1,11 +1,14 @@
-import styles from "./Header.module.scss"
 import logo from "../../assets/images/logo.png"
+import {LogOut} from 'lucide-react';
+import {NavLink} from "react-router-dom";
+import ProfileMenu from "@/components/Header/components/ProfileMenu.jsx";
 // import {NavLink, useNavigate} from "react-router-dom";
 // import {useContext, useEffect, useState} from "react";
 // import {useUser} from "../../hooks/useUser.jsx";
 // import {checkAuth} from "../../apis/apiUsers.jsx";
 // import { UserAuth } from "../../appContext.js";
 // import Cookies from "js-cookie";
+
 
 function Header() {
 
@@ -20,38 +23,23 @@ function Header() {
     // }
 
     return (
-        <header className={`${styles.header} d-flex flex-row align-items-center`}>
-
-            <div className={`d-flex flex-fill flex-fill ${styles.logoContainer} align-items-center`}>
-                {/*<NavLink to={'/'} >*/}
-                    <img src={logo} alt="logo cookchef"/>
-                {/*</ NavLink>*/}
+        <header className='flex flex-row align-items-center sticky top-0 z-40  w-full px-8  backdrop-blur bg-background shadow'>
+            <div className={`flex align-items-center`}>
+                <NavLink to={'/'} >
+                    <img className='h-14' src={logo} alt="logo cookchef"/>
+                </ NavLink>
             </div>
-            {/*<ul className={styles.headerList}>*/}
-            {/*    /!*{!appAuth.authenticated &&*!/*/}
-            {/*        <NavLink to={'/login'}>*/}
-            {/*            <button className="btn btn-reverse-primary mr-5">*/}
-            {/*                <i className="fas fa-plug mr-5"></i>*/}
-            {/*                <span>Log in</span>*/}
-            {/*            </button>*/}
-            {/*        </NavLink>*/}
-            {/*    /!*}*!/*/}
-            {/*    /!*{appAuth?.authenticated &&*!/*/}
-            {/*    /!*    <button className="btn btn-primary" onClick={logout}>*!/*/}
-            {/*    /!*        <i className="fas fa-sign-in-alt mr-5"></i>*!/*/}
-            {/*    /!*        <span>Log out</span>*!/*/}
-            {/*    /!*    </button>*!/*/}
-            {/*    /!*}*!/*/}
-            {/*    /!*{(appAuth?.authenticated && appAuth?.user.admin)  &&*!/*/}
-            {/*        <NavLink to={'/admin'}>*/}
-            {/*            <button className="btn btn-reverse-primary mr-5">*/}
-            {/*                <i className="fas fa-plug mr-5"></i>*/}
-            {/*                <span>Admin panel</span>*/}
-            {/*            </button>*/}
-            {/*        </NavLink>*/}
-            {/*    /!*}*!/*/}
 
-            {/*</ul>*/}
+            <div className='flex flex-row text-sm gap-2 w-full justify-end '>
+                {/*<NavLink className='flex flex-row my-auto' to={'/week'}>*/}
+                {/*    <span>Ma semaine</span>*/}
+                {/*</NavLink>*/}
+                {/*<NavLink className='flex flex-row my-auto' to={'/chat'}>*/}
+                {/*    <span>Chat</span>*/}
+                {/*</NavLink>*/}
+                <ProfileMenu/>
+            </div>
+
         </header>
     )
 }

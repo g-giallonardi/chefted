@@ -12,7 +12,6 @@ const useSse = () => {
     let intervalId = null
 
     const messageHandler = (event) => {
-        console.info('EVENT', event)
         const chunk = event.data
         messageBuffer += chunk.replace(/^$/,'\\n').replaceAll('"', '');
     }
@@ -25,10 +24,10 @@ const useSse = () => {
         let blocks = []
         const nbPackedLine = (max) => Math.floor(Math.random() * (max-1)) + 1
         let start = 0
+
         while (start < lines.length) {
             const end = start + nbPackedLine(lines.length - start);
             const block = lines.slice(start, end).join('.')
-            console.info('BLOCK', block, block.length)
             block.length && blocks.push(block);
             start = end;
         }
@@ -58,23 +57,16 @@ const useSse = () => {
                 body: requestData ? JSON.stringify(requestData) : null,
                 onopen(res) {
                     messageBuffer = ''
-
+                    console.info('RES', res.status)
                     if (res.ok && res.status === 200) {
                         setIsLoading(true);
                         intervalId = setInterval(() => {
                             const [ blocks, incompleteLine ] = formatMessage(messageBuffer)
                             setData(blocks);
-                            console.info('buffer', messageBuffer)
-                            console.info('blocks', blocks)
                             messageBuffer = incompleteLine
                         }, 1000);
-
-                        console.log("Connection made ", res);
-                    } else if (
-                        res.status >= 400 &&
-                        res.status < 500 &&
-                        res.status !== 429
-                    ) {
+                    } else  {
+                        setError('Erreur lors de l\'envoie de votre message');
                         setIsLoading(false);
                         console.log("Client side error ", res);
                     }
@@ -83,15 +75,14 @@ const useSse = () => {
                 onclose() {
                     console.log("Connection closed by the server");
                     clearInterval(intervalId)
-                    console.info('buffer', messageBuffer)
                     const [ blocks, incompleteLine ] = formatMessage(messageBuffer, true)
                     setData(blocks);
-                    console.info('blocks', blocks)
                     setIsLoading(false);
-
                 },
                 onerror(err) {
                     console.error("There was an error from server", err);
+
+
                     setError(err);
                     setIsLoading(false);
                     throw err;
@@ -107,6 +98,7 @@ const useSse = () => {
     return {
         isLoading,
         error,
+        setError,
         data,
         execute, // to avoid infinite calls when inside a `useEffect`
     };

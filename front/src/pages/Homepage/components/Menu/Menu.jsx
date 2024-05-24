@@ -1,64 +1,21 @@
 import {useState} from "react";
-import styles from './Menu.module.scss'
 import Meal from "./components/Meal.jsx";
 import {user} from "../../../../data/user.mock.js";
 import {Button, Chip, Skeleton, Stack} from "@mui/material";
 import AutorenewOutlinedIcon from '@mui/icons-material/AutorenewOutlined';
 import ChangeMenuDialog from "../ChangeMenuDialog/ChangeMenuDialog.jsx";
 
+import {userSettings} from "@/assets/mock/userSettings.js";
+import {mealPreset} from "@/assets/mock/mealPreset.js";
+import {cn} from "@/lib/utils.js";
+
 function Menu(){
     const [isLoading, setIsLoading] = useState(false)
     const [selectedDay, setSelectedDay ] = useState(0)
-    const [recipes, setRecipes] = useState({ menu : [
-            {
-                "midi": "Salade de quinoa au chorizo",
-                "soir": "Poulet rôti aux légumes"
-            },
-            {
-                "midi": "Pâtes au chorizo et aux légumes",
-                "soir": "Saumon grillé avec ratatouille"
-            },
-            {
-                "midi": "Salade de riz au chorizo et aux légumes",
-                "soir": "Steak de bœuf avec purée de patates douces"
-            },
-            {
-                "midi": "Omelette au chorizo et aux légumes",
-                "soir": "Filet de poisson avec quinoa aux légumes"
-            },
-            {
-                "midi": "Pizza au chorizo et aux légumes",
-                "soir": "Côtelettes d'agneau avec haricots verts"
-            },
-            {
-                "midi": "Tortilla au chorizo et aux légumes",
-                "soir": "Escalopes de dinde avec salade verte"
-            },
-            {
-                "midi": "Salade de pâtes au chorizo et aux légumes",
-                "soir": "Risotto aux champignons"
-            }
-        ]})
+    const [recipes, setRecipes] = useState(mealPreset)
 
     const [ mealPrepSettings, setMealPrepSettings] = useState({
-        habit : 'flexitarien',
-        allergies : [
-            { name: 'Gluten', checked : false},
-            { name: 'Lactose',checked : false},
-            { name: 'Œufs',checked : false},
-            { name: 'Poissons',checked : false},
-            { name: 'Crustacés',checked : false},
-            { name: 'Mollusques',checked : false},
-            { name: 'Arachides',checked : false},
-            { name: 'Fruits à coques',checked : false},
-            { name: 'Céleri',checked : false},
-            { name: 'Moutarde',checked : false},
-            { name: 'Soja',checked : false},
-            { name: 'Sésame',checked : false},
-            { name: 'Lupin',checked : false},
-            { name: 'Sulfites', checked : false},
-        ],
-        batchCooking: false
+       userSettings
     })
 
     function daysForLocale(localeName = 'fr-FR', weekday = 'long') {
@@ -83,65 +40,57 @@ function Menu(){
         }
     }
 
-    function handleChangeMenu(){
-        setIsLoading(true)
-        const payload = { user}
-        fetch('/api/meal/changeMenu', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(mealPrepSettings)
-        })
-            .then(response => response.json()) // Parses the response as JSON
-            .then(data => {
-                const completeWeek = fillInMissingMeals(data.menu)
-                console.info('completeWeek', completeWeek)
-                setRecipes({menu:  completeWeek})
-                setIsLoading(false)
-            }) // Do something with your data
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-    }
-    const [open, setOpen] = useState(false);
-
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-    const handleClose = () => {
-        setOpen(false);
-    };
-
     return (
-        <>
-            <ChangeMenuDialog open={open} handleClose={handleClose} handleChangeMenu={handleChangeMenu} mealPrepSettings={mealPrepSettings} setMealPrepSettings={setMealPrepSettings} / >
-            <div className={`flex d-flex flex-fill flex-column align-items-center p-20`}>
-                <div className={`flex d-flex flex-row flex-fill mb-20`}>
-                    <Stack direction="row" spacing={1}>
-                        {daysForLocale().map(
-                            (day, i) => <Chip key={i} label={day} color="success" variant={selectedDay === i ? 'filled' : "outlined"} onClick={() => handleSelectDay(i)}/>
-                        )}
-                    </Stack>
-                    <Button onClick={handleClickOpen} variant="contained" endIcon={<AutorenewOutlinedIcon />}>
-                        Change Menu
-                    </Button>
+        <div className='w-full'>
+            <h2 className='text-2xl font-bold m-10 self-start'>Mon menu de la semaine</h2>
+            <div className={`flex flex-row mx-auto gap-10 justify-center w-full`}>
+
+                <div className={`flex flex-col border-l-4 `}>
+                    {daysForLocale().map(
+                        (day, i) => <div key={i}
+                                         className={`flex flex-col
+                                             h-20 -translate-y-3 aspect-square
+                                              before:bg-primary before:w-4 before:h-4 before:rounded-full
+                                              before:-translate-x-2.5 before:translate-y-5
+                                             
+                                              ${selectedDay === i ? 
+                                                'font-bold before:scale-150 before:border-4 before:bg-white before:border-primary'
+                                                : 'hover:before:bg-primary hover:before:scale-150 before:transition-all ' +
+                                             'hover:before:border-4 hover:before:border-primary ' +
+                                             'hover:cursor-pointer'
+                                                }
+                                              `}
+                                         onClick={() => handleSelectDay(i)}>
+                            <div>
+                                <div className='ml-5 '>{day}</div>
+                                <div className=' text-lg font-bold'>{i + 12}</div>
+                            </div>
+
+                        </div>
+                    )}
                 </div>
 
-                <div className={`flex d-flex flex-fill`}>
-                    {isLoading ?
-                        <>
-                            <Skeleton className={`mr-5`} variant="rounded" width={345} height={200} />
-                            <Skeleton variant="rounded" width={345} height={200} />
-                        </> :
-                        <div className={`flex d-flex flex-fill`}>
-                            <Meal currentMeal={recipes.menu[selectedDay].midi}/>
-                            <Meal currentMeal={recipes.menu[selectedDay].soir}/>
-                        </div>
-                    }
+                <div className={`flex flex-col w-full`}>
+                    Menu du
+                    <div className={`flex flex-row w-full items-end gap-2`}>
+                        <div className=' text-lg font-bold '>{daysForLocale()[selectedDay]}</div>
+                        <div className=' text-2xl font-bold'>{selectedDay + 12}</div>
+                    </div>
+                    <div className='flex flex-col gap-4 justify-center h-full'>
+                        {isLoading ?
+                            <>
+                                <Skeleton className={`mr-5`} variant="rounded" width={345} height={200}/>
+                                <Skeleton variant="rounded" width={345} height={200}/>
+                            </> :
+                            <>
+                                <Meal currentMeal={recipes.menu[selectedDay].midi} type='0' />
+                                <Meal currentMeal={recipes.menu[selectedDay].soir} type='1' />
+                            </>
+                        }
+                    </div>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 
