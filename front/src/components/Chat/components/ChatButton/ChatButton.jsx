@@ -9,6 +9,7 @@ export default function ChatButton({onClick}){
         hover:cursor-pointer
         bg-gradient-to-r from-primary/70 to-primary/10
         hover:from-primary/90 hover:to-primary/30
+        animate-bounce
         transform active:scale-75 transition-all '
         onClick={onClick}>
             <PawPrint />

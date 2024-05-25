@@ -56,9 +56,9 @@ function Chat(){
                 <ChatButton onClick={() => setCollapse(false)}/>
             </div>
         <div
-            className={`flex flex-col fixed backdrop-blur bottom-1 right-3 bg-white/10 rounded-lg border border-primary ${expand ? 'max-w-2xl w-full max-h-[600px] h-[600px]' : 'max-w-md w-md max-h-[400px] h-[400px] '} ${collapse ? ' scale-0' : ' scale-100' } transition-all`}>
-            <div className='flex bg-primary w-full h-16 text-lg font-bold items-center justify-between pl-2 pr-4 text-white shadow-lg'>
-                <div className='flex flex-row py-2 self-start'>
+            className={`flex flex-col fixed backdrop-blur bottom-1 right-3 bg-white/10 rounded-lg border border-primary ${expand ? 'max-w-2xl w-full h-[calc(100vh-74px)]' : 'max-w-md w-md max-h-[400px] h-[400px] '} ${collapse ? ' scale-0' : ' scale-100' } transition-all`}>
+            <div className='flex bg-primary border-b w-full h-16 text-lg font-bold items-center justify-between pl-2 pr-4 text-white shadow-lg'>
+                <div className='flex flex-row py-2 self-start text-primary-foreground '>
                     {expand ?
                         <Minimize2 className={`rotate-180  h-4 hover:opacity-70 transition-all self-start hover:cursor-pointer`} onClick={() => setExpand(!expand)}/>
                     :   <Maximize2 className={`rotate-180  h-4 hover:opacity-70 transition-all self-start hover:cursor-pointer`} onClick={() => setExpand(!expand)}/>
@@ -66,9 +66,11 @@ function Chat(){
                     }
                     <ChevronDown  className={` h-5 hover:opacity-70 transition-all self-start hover:cursor-pointer`} onClick={() => setCollapse(!collapse)}/>
                 </div>
-                ChefTed
+                <span className='text-primary-foreground'>
+                    Chef Ted
+                </span>
             </div>
-            <div className={`flex flex-col border-b  w-full overflow-y-scroll h-full gap-2  p-3 pl-7`}>
+            <div className={`flex flex-col border-b  w-full overflow-y-scroll h-full gap-2 p-3 pl-7 `}>
                 {
                     messages.filter(
                         (message) => message.content
@@ -78,10 +80,9 @@ function Chat(){
                 }
                 {isLoading && <IsTyping/>}
                 {error && <span className='text-destructive text-xs self-end'>{error}</span>}
-
                 <AlwaysScrollToBottom/>
             </div>
-            <div className={`flex flex-row w-full items-center justify-center mx-2`}>
+            <div className={`flex flex-row w-full items-center justify-center  mx-2`}>
                 <input placeholder='Ecrivez...' type="text"
                            className=' rounded-xl w-full bg-white px-3 py-2 shadow mr-3 border my-4 focus:outline-none bg-muted font-light text-sm'
                            value={currentMessage}

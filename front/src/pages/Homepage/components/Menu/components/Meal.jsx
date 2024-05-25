@@ -35,7 +35,6 @@ function Meal({currentMeal, type}){
         <div>
             {isLoading ?
                 <Spinner /> :
-
                 <div className='flex flex-row gap-2 shadow-sm  h-full w-full border border-primary/30 '>
                     <div className='h-48 aspect-square'>
                         <img src={mealImage} alt="Meal"  />

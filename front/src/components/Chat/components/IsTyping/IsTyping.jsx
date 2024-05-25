@@ -2,7 +2,7 @@ export default function IsTyping(){
 
     return (
         <div
-            className='flex h-screen
+            className='flex
             dark:invert font-bold text-lg border rounded-lg px-2 bg-primary/20
             w-fit transition-all h-fit'>
             <span className='sr-only'>Loading...</span>

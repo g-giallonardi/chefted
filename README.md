@@ -11,6 +11,7 @@ Cette application vous aide à générer des menus équilibrés pour la semaine,
 - **Régimes Alimentaires :** Personnalisez les menus en fonction de vos régimes alimentaires tels que végétarien, végétalien, cétogène, paléo, etc.
 - **Prise en Compte des Allergies :** Assurez-vous que les menus évitent les ingrédients auxquels vous êtes allergique, garantissant ainsi votre sécurité et votre tranquillité d'esprit.
 - **Chat avec un Assistant IA :** Discutez avec un chef cuisinier virtuel (Chef Ted) alimenté par l'IA pour obtenir des conseils de cuisine, des suggestions de recettes et des substitutions d'ingrédients.
+![](assets/pres_chat.gif)
 - **Intégration d'OpenAI :** Utilisez les puissantes capacités de traitement du langage naturel d'OpenAI pour améliorer l'expérience conversationnelle avec l'assistant cuisinier.
 
 ## Stack Technologique

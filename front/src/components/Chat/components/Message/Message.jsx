@@ -11,10 +11,22 @@ function Message({message}){
             </div>
             <div className={`flex flex-row gap-2 ${message.type === 'user' && 'flex-row-reverse'}`}>
                 <div>
-                    <img src={message.type === 'user'? userAvatar : chefTedAvatar} className='h-8 aspect-square' alt=""/>
+                    <Avatar>
+                        <AvatarImage src={message.type === 'user'? userAvatar : chefTedAvatar} alt={message.type === 'user'? 'Votre avatar' : 'Avatar de Chef Ted'} />
+                    </Avatar>
                 </div>
                 <div
-                    className={`flex font-light rounded-lg py-2 px-2 max-w-[70%] w-fit text-sm backdrop-blur text-white ${message.type === 'user' ? 'self-end bg-slate-500' : 'bg-primary/70'}`}>
+                    className={`flex py-2 px-2 max-w-[70%] w-fit
+                    font-light  text-sm  
+                    rounded-lg backdrop-blur
+                    mx-2
+                    ${message.type === 'user' ? 'after:h-3 after:w-3 after:rotate-45 '+
+                     'self-end after:-right-1 bg-slate-300 after:bg-slate-300 text-slate-700 after:fixed' 
+                     : '  bg-primary text-slate-700 ' +
+                        'before:inline-block before:absolute before:w-3 before:h-3 before:content-[\' jhjkhjk\'] before:text-black before:-rotate-45 before:-translate-x-3 '+
+                     ' before:bg-primary  ' 
+                    }
+                    `}>
                     {message.content}
                 </div>
             </div>

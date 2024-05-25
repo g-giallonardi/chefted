@@ -26,7 +26,7 @@ function Header() {
         <header className='flex flex-row align-items-center sticky top-0 z-40  w-full px-8  backdrop-blur bg-background shadow'>
             <div className={`flex align-items-center`}>
                 <NavLink to={'/'} >
-                    <img className='h-14' src={logo} alt="logo cookchef"/>
+                    <span className='font-extrabold text-primary text-3xl'>ChefTed</span>
                 </ NavLink>
             </div>
 
