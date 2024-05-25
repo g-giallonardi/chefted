@@ -2,7 +2,7 @@ import {PawPrint} from 'lucide-react';
 
 export default function ChatButton({onClick}){
     return (
-        <div className='absolute flex bottom-3 right-3
+        <div className='fixed flex bottom-3 right-3
         border rounded-full h-14 w-14
         shadow-2xl
         items-center justify-center

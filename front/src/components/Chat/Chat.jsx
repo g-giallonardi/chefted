@@ -56,7 +56,7 @@ function Chat(){
                 <ChatButton onClick={() => setCollapse(false)}/>
             </div>
         <div
-            className={`flex flex-col fixed backdrop-blur bottom-1 right-3 bg-white/10 rounded-lg border border-primary ${expand ? 'max-w-2xl w-full h-[calc(100vh-74px)]' : 'max-w-md w-md max-h-[400px] h-[400px] '} ${collapse ? ' scale-0' : ' scale-100' } transition-all`}>
+            className={`flex flex-col fixed backdrop-blur bottom-1 right-3 bg-white/10 rounded-lg border border-primary ${expand ? 'max-w-2xl w-full h-[calc(100vh-45px)]' : 'max-w-xs md:max-w-md w-md max-h-[400px] h-[400px] '} ${collapse ? ' scale-0' : ' scale-100' } transition-all`}>
             <div className='flex bg-primary border-b w-full h-16 text-lg font-bold items-center justify-between pl-2 pr-4 text-white shadow-lg'>
                 <div className='flex flex-row py-2 self-start text-primary-foreground '>
                     {expand ?
