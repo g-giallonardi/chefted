@@ -42,7 +42,6 @@ function Menu(){
 
     return (
         <div className='w-full lg:ml-20 md:ml-9 ml-3 '>
-            <h2 className='text-2xl font-bold m-5 self-start'>Mon menu de la semaine</h2>
             <div className={`flex flex-row mx-auto gap-10 justify-center w-full`}>
                 <div className={`flex flex-col border-l-4 `}>
                     {daysForLocale().map(

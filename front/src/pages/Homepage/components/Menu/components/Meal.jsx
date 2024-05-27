@@ -41,7 +41,7 @@ function Meal({currentMeal, type}){
                 border border-primary/30
                 p-5 '>
                     <div className='flex justify-center'>
-                        <img src={mealImage} alt="Meal" className='max-h-32 aspect-square' />
+                        <img src={mealImage} alt="Meal" className='w-32  md:w-44 xl:w-58 aspect-square' />
                     </div>
                     <div className='flex flex-col w-full ml-5 flex-wrap justify-between my-2'>
                         <span className='text-lg font-bold'>{type === '0' ? 'Dejeuner' : 'Diner'}</span>

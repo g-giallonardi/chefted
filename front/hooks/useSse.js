@@ -13,31 +13,17 @@ const useSse = () => {
 
     const messageHandler = (event) => {
         const chunk = event.data
-        messageBuffer += chunk.replace(/^$/,'\\n').replaceAll('"', '');
+        messageBuffer += chunk.replace(/^$/,'\n').replaceAll('"', '');
     }
 
-    const formatMessage = (stringData, complete = false) => {
-        const lines = stringData.replace(/(\d+)\./, "$1-").replaceAll('..','.').split('\\n')
-
-        const lastLine = lines.pop()
-
-        let blocks = []
-        const nbPackedLine = (max) => Math.floor(Math.random() * (max-1)) + 1
-        let start = 0
-
-        while (start < lines.length) {
-            const end = start + nbPackedLine(lines.length - start);
-            const block = lines.slice(start, end).join('.')
-            block.length && blocks.push(block);
-            start = end;
+    const formatMessage = (messageString, complete = false) => {
+        const messageLines = messageString.split('\n');
+        const lastLine = messageLines.pop();
+        const remainingLine = complete ? null : lastLine;
+        if (complete) {
+            messageLines.push(lastLine);
         }
-
-        if(complete) {
-            blocks.push(lastLine)
-            return [ blocks, null ]
-        }else{
-            return [ blocks, lastLine ]
-        }
+        return [messageLines, remainingLine];
     }
 
     const execute = async (method, endpoint, requestData = null) => {
@@ -57,8 +43,7 @@ const useSse = () => {
                 body: requestData ? JSON.stringify(requestData) : null,
                 onopen(res) {
                     messageBuffer = ''
-                    console.info('RES', res.status)
-                    if (res.ok && res.status === 200) {
+                        if (res.ok && res.status === 200) {
                         setIsLoading(true);
                         intervalId = setInterval(() => {
                             const [ blocks, incompleteLine ] = formatMessage(messageBuffer)

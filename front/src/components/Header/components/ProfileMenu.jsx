@@ -13,7 +13,7 @@ function ProfileMenu(){
     return (
         <DropdownMenu>
             <DropdownMenuTrigger>
-                <Avatar>
+                <Avatar className='ml-8 mr-5' >
                     <AvatarImage src={avatar} />
                     <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
