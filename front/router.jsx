@@ -1,6 +1,7 @@
 import {createBrowserRouter} from "react-router-dom";
 import App from "@/App.jsx";
 import Homepage from "@/pages/Homepage/Homepage.jsx";
+import Pantry from "@/pages/Pantry/Pantry.jsx";
 
 export const router = createBrowserRouter([
 	{
@@ -10,6 +11,9 @@ export const router = createBrowserRouter([
 			{
 				index: true,
 				element: <Homepage />
+			},{
+				path:'pantry',
+				element: <Pantry />
 			}
 		]
 	}

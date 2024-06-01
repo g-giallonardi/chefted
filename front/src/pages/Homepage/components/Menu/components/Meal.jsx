@@ -1,6 +1,6 @@
 import {useState} from "react";
 import mealImage from '../../../../../assets/images/mexican_meal.jpeg'
-import {user} from "../../../../../data/user.mock.js"
+import {user} from "../../../../../assets/mock/user.mock.js"
 import Spinner from "../../../../../components/Spinner/Spinner.jsx";
 import { RefreshCw, Star, Heart } from 'lucide-react';
 

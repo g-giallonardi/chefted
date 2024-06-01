@@ -1,8 +1,25 @@
 import {Avatar, AvatarImage} from "@/components/ui/avatar.jsx";
 import chefTedAvatar from '@/assets/images/chedTed_avatar.png'
 import userAvatar from '@/assets/images/user_avatar.png'
+import reactStringReplace from 'react-string-replace';
+import Recipe from "@/components/Chat/components/Recipe/Recipe.jsx";
+import Ingredient from "@/components/Chat/components/Ingredient/Ingredient.jsx";
+import RecipeOrOtherIdeas from "@/components/Chat/components/RecipeOrOtherIdeas/RecipeOrOtherIdeas.jsx";
 
-function Message({message}){
+function Message({message, sendMessage}){
+    const recipeRegexp = /@@([^\]]+)@@/gi;
+    const ingredientRegexp = /@!@([^\]]+)@!@/gi;
+    const recipeOrOtherRegexp = /RECIPE\/\/\/OTHER/gi;
+    let content = reactStringReplace(message.content, recipeRegexp, (match, idx) => (
+                        <Recipe key={idx} sendMessage={sendMessage}>{match}</Recipe>
+        ))
+    content = reactStringReplace(content, ingredientRegexp, (match, idx) => (
+                        <Ingredient key={idx} sendMessage={sendMessage}>{match}</Ingredient>
+        ))
+    content = reactStringReplace(content, recipeOrOtherRegexp, (match, idx) => (
+                        <RecipeOrOtherIdeas sendMessage={sendMessage}/>
+
+        ))
 
     return (
         <div className={`flex flex-col w-full`}>
@@ -17,7 +34,7 @@ function Message({message}){
                 </div>
                 <div
                     className={`flex py-2 px-2 max-w-[70%] w-fit
-                    font-light  text-sm  
+                    font-light  text-xs  
                     rounded-lg backdrop-blur
                     mx-2
                     ${message.type === 'user' ? 'after:h-3 after:w-3 after:rotate-45 '+
@@ -27,7 +44,7 @@ function Message({message}){
                      ' before:bg-primary  ' 
                     }
                     `}>
-                    {message.content}
+                    {content}
                 </div>
             </div>
 

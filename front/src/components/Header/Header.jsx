@@ -23,21 +23,24 @@ function Header() {
     // }
 
     return (
-        <header className='flex flex-row align-items-center sticky top-0 z-40  w-full px-8  backdrop-blur bg-background shadow'>
+        <header className='flex flex-row h-12 align-items-center sticky top-0 z-40  w-full px-8  backdrop-blur bg-background shadow'>
             <div className={`flex align-items-center`}>
                 <NavLink to={'/'} >
                     <span className='font-extrabold text-primary text-3xl'>ChefTed</span>
                 </ NavLink>
             </div>
 
-            <div className='flex flex-row text-sm gap-2 w-full justify-end '>
-                {/*<NavLink className='flex flex-row my-auto' to={'/week'}>*/}
-                {/*    <span>Ma semaine</span>*/}
-                {/*</NavLink>*/}
-                {/*<NavLink className='flex flex-row my-auto' to={'/chat'}>*/}
-                {/*    <span>Chat</span>*/}
-                {/*</NavLink>*/}
-                <ProfileMenu/>
+            <div className='flex flex-row text-sm gap-2 w-full justify-end underline'>
+                <NavLink className='flex flex-row my-auto' to={'/week'}>
+                    <span>Ma semaine</span>
+                </NavLink>
+                <NavLink className='flex flex-row my-auto' to={'/pantry'}>
+                    <span>Mon garde-manger</span>
+                </NavLink>
+                <div className=' flex m-15'>
+                   <ProfileMenu/>
+                </div>
+
             </div>
 
         </header>

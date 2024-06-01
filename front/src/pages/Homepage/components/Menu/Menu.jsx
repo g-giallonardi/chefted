@@ -1,6 +1,6 @@
 import {useState} from "react";
 import Meal from "./components/Meal.jsx";
-import {user} from "../../../../data/user.mock.js";
+import {user} from "../../../../assets/mock/user.mock.js";
 import {Button, Chip, Skeleton, Stack} from "@mui/material";
 import AutorenewOutlinedIcon from '@mui/icons-material/AutorenewOutlined';
 import ChangeMenuDialog from "../ChangeMenuDialog/ChangeMenuDialog.jsx";
